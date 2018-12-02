@@ -1,23 +1,44 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import styled, { keyframes } from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import Media from "react-media";
 import { Events } from "react-scroll";
-import posed, { PoseGroup } from "react-pose";
+import { easing } from "popmotion";
+import posed from "react-pose";
+
+const names = [
+  "HARITH AUGUSTUS.",
+  "ANTWON ROSE.",
+  "LAVAR DOUGLAS.",
+  "JUSTINE DAMOND.",
+  "CHARLEENA LYLES.",
+  "MANUEL DIAZ.",
+  "JOEL ACEVEDO.",
+  "STEVEN SCHILTZ.",
+  "AMILCAR PEREZ-LOPEZ.",
+  "JOHN HERNANDEZ.",
+  "MICHAEL JEFFERSON.",
+  "AUTUMN STEELE.",
+  "TASHII BROWN.",
+  "NO MORE NAMES."
+];
 
 const NamesContainer = styled.div`
   font-family: "Avenir Next";
+  z-index: 2000;
   font-weight: 700;
   font-size: 50px;
   color: white;
   background-color: black;
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   line-height: 1;
+  pointer-events: ${({ fade }) => (fade ? "none" : "auto")};
+  opacity: ${({ fade }) => (fade ? "0" : "1")};
+  transition: 0.4s ease;
   overflow: hidden;
 `;
 
@@ -40,70 +61,87 @@ const Item = styled.div`
   text-align: center;
 `;
 
-const ItemContainer = styled(
-  posed.div({
-    enter: {
-      y: "calc(-100% + 4rem)",
-      delay: 300,
-      transition: {
-        default: { duration: 20000 }
-      }
-    }
-  })
-)`
-  transform: translateY(0%);
-  white-space: nowrap;
+function range(number) {
+  const arr = [];
+  for (var i = 0; i < number; ++i) {
+    arr.push(0);
+  }
+  return arr;
+}
+
+const fadeup = keyframes`
+  ${(function() {
+    return range(names.length)
+      .map((e, i, arr) => {
+        const p = (((i + 1) / arr.length) * 100) | 0;
+        return `
+          ${p}% { transform: translate3d(0, calc(-${p}% + 4rem), 0); }
+          ${p +
+            (1 / arr.length) *
+              100 *
+              0.4}% { transform: translate3d(0, calc(-${p}% + 4rem), 0); }
+        `;
+      })
+      .join("\n");
+  })()}
 `;
 
-class Fade extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoaded: false,
-      names: null
-    };
-  }
+const ItemContainer = styled.div`
+  will-change: transform;
+  transform: translate3d(0%);
+  white-space: nowrap;
+  animation: ${fadeup} 15s ease-in-out;
+  animation-fill-mode: forwards;
+`;
 
-  async componentDidMount() {
-    const data = await (await fetch("/names.txt")).text();
-    const names = data.split("\n");
-    names.pop();
+const Fade = () => (
+  <FadeContainer>
+    <ItemContainer>
+      {names.map((name, i) => (
+        <Item>{name}</Item>
+      ))}
+    </ItemContainer>
+  </FadeContainer>
+);
 
-    this.setState({
-      isLoaded: true,
-      names
-    });
-  }
-
-  render() {
-    return (
-      <FadeContainer>
-        <PoseGroup>
-          {this.state.isLoaded && (
-            <ItemContainer key={0}>
-              {this.state.names.map((name, i) => (
-                <Item>{name}</Item>
-              ))}
-            </ItemContainer>
-          )}
-        </PoseGroup>
-      </FadeContainer>
-    );
-  }
-}
+const Enter = styled.button`
+  position: absolute;
+  text-transform: uppercase;
+  color: black;
+  background-color: white;
+  padding: 12px 14px;
+  appearance: none;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.1px;
+  border: none;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 64px;
+`;
 
 export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      translateY: 0
+      fade: false
     };
   }
 
   render() {
     return (
-      <NamesContainer>
+      <NamesContainer fade={this.state.fade}>
         <Fade />
+        <Enter
+          onClick={() => {
+            this.setState({
+              fade: true
+            });
+            setTimeout(this.props.loaded, 200);
+          }}
+        >
+          Enter the Site ➔
+        </Enter>
       </NamesContainer>
     );
   }

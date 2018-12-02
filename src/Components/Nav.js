@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import styled, { keyframes } from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import Media from "react-media";
@@ -21,6 +20,7 @@ const Nav = styled.nav`
   animation-delay: 0.1s;
   animation-fill-mode: forwards;
   pointer-events: auto;
+  
 `;
 
 const SideBar = styled.div`
@@ -51,6 +51,8 @@ const SideBar = styled.div`
 `;
 
 const Logo = styled.div`
+z-index: 2;
+position: relative;
   width: 48px;
   height: 48px;
   background-color: #a11b1c;
@@ -64,7 +66,7 @@ const LinkContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   transition: 0.6s cubic-bezier(1, 0, 0, 1) transform;
-  z-index: 2;
+  z-index: 1;
 
   @media (max-width: 1240px) {
     grid-auto-flow: row;
@@ -148,7 +150,7 @@ const AltStyledNavLink = styled.a`
   transition: 0.2s ease all;
 
   &:hover {
-    box-shadow: inset 0 -2px 0 0  white;
+    box-shadow: inset 0 -2px 0 0 white;
   }
 `;
 
@@ -218,9 +220,9 @@ export default class extends Component {
           onClick={this.toggleNav.bind(this)}
         />
         <Nav>
-          {/* <Link to={"/"}> */}
-          <Logo />
-          {/* </Link> */}
+          <Link to={"/"} style={{position: "relative"}}>
+            <Logo />
+          </Link>
           <LinkContainer active={this.state.navIsActive}>
             <LeftLinks>
               <StyledNavLink to={"/about"}>About</StyledNavLink>

@@ -7,6 +7,12 @@ const Section = styled.section`
   margin: 64px auto;
   display: flex;
   position: relative;
+
+  @media (max-width: 1240px) {
+    display: block;
+    width: auto;
+    padding: 0px 16px;
+  }
 `;
 
 const Period = styled.span`
@@ -19,12 +25,12 @@ const Period = styled.span`
 
 const Text = styled.p`
   font-family: "Avenir";
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.5;
+  margin-top: 0;
 `;
 
 const Title = styled.h1`
-  position: sticky;
   top: 0;
   margin: 0;
   margin-right: 64px;
@@ -35,6 +41,12 @@ const Title = styled.h1`
   font-weight: 900;
   line-height: 0.8;
   text-shadow: 7px 7px 0 rgba(0, 0, 0, 0.05);
+
+  @media (max-width: 1240px) {
+    font-size: 64px;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
 `;
 
 export default class extends Component {

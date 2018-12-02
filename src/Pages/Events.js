@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Nav from "../Nav.js";
+import Nav from "../Components/Nav.js";
 import SplitText from "react-pose-text";
+import Footer from "../Components/Footer";
 
 const cubicEasing = "cubic-bezier(1, 0, 0, 1)";
 
@@ -113,7 +114,7 @@ const Text = styled.div`
 
 const BoldTextContainer = styled.h2`
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   margin: 0;
   overflow: hidden;
@@ -261,60 +262,25 @@ export default class extends Component {
     };
 
     return (
-      <BodyContainer>
-        <Nav />
-        <Container>
-          <TitleContainer>
-            <TitleGroup>
-              <Subtitle>Upcoming</Subtitle>
-              <MainTitle>Events</MainTitle>
-            </TitleGroup>
-          </TitleContainer>
-          <MainContainer>
-            <HorizontalContainer>
+      <div>
+        <BodyContainer>
+          <Nav />
+          <Container>
+            <TitleContainer>
               <TitleGroup>
-                <Subtitle red>What</Subtitle>
-                <BoldText>NO MORE NAMES BENEFIT CONCERT</BoldText>
+                <Subtitle>Upcoming</Subtitle>
+                <MainTitle>Events</MainTitle>
               </TitleGroup>
-              <TitleGroup>
-                <Subtitle red>When</Subtitle>
-                <TallText>Spring 2019</TallText>
-              </TitleGroup>
-              {/* <TitleGroup>
-                <Subtitle red>Where</Subtitle>
-                <TallText>African American Studies &amp; Economics</TallText>
-              </TitleGroup> */}
-            </HorizontalContainer>
-
-            <Text space>
-              The organization is working on having a No More Names benefit
-              concert series across the Ivy League in the Spring 2019. The
-              vision for this event goes beyond just raising money to support
-              protest and legislation. It is about inspiring and igniting fire
-              for change through art. The event will feature student performers,
-              representatives and organizations in the community and local
-              artist/ upcoming artists.
-            </Text>
-          </MainContainer>
-        </Container>
-        <Container>
-          <TitleContainer>
-            <TitleGroup>
-              <Subtitle>Past</Subtitle>
-              <MainTitle>Events</MainTitle>
-            </TitleGroup>
-          </TitleContainer>
-          <MainContainer>
-            <MainImage src="/past.png" />
-            <div>
+            </TitleContainer>
+            <MainContainer>
               <HorizontalContainer>
                 <TitleGroup>
                   <Subtitle red>What</Subtitle>
-                  <BoldText>Inaugural Concert</BoldText>
+                  <BoldText>NO MORE NAMES BENEFIT CONCERT</BoldText>
                 </TitleGroup>
                 <TitleGroup>
                   <Subtitle red>When</Subtitle>
-                  <TallText>Spring 2018</TallText>
+                  <TallText>Spring 2019</TallText>
                 </TitleGroup>
                 {/* <TitleGroup>
                 <Subtitle red>Where</Subtitle>
@@ -323,19 +289,57 @@ export default class extends Component {
               </HorizontalContainer>
 
               <Text space>
-                For the inaugural concert series at Harvard in 2018, thanks to a
-                performance from special guest Vic Mensa, and contributions from
-                both Dr. Harry Edwards, and Jeremy Lin, No More Names raised
-                over $7,000. All proceeds from ticket sales and donations will
-                go to Campaign Zero, in hopes of creating a world where unarmed
-                men and women do not see their lives taken by police. We are
-                committed to end the cycle. We are committed to make sure that
-                there will be no more names.
+                The organization is working on having a No More Names benefit
+                concert series across the Ivy League in the Spring 2019. The
+                vision for this event goes beyond just raising money to support
+                protest and legislation. It is about inspiring and igniting fire
+                for change through art. The event will feature student
+                performers, representatives and organizations in the community
+                and local artist/ upcoming artists.
               </Text>
-            </div>
-          </MainContainer>
-        </Container>
-      </BodyContainer>
+            </MainContainer>
+          </Container>
+          <Container>
+            <TitleContainer>
+              <TitleGroup>
+                <Subtitle>Past</Subtitle>
+                <MainTitle>Events</MainTitle>
+              </TitleGroup>
+            </TitleContainer>
+            <MainContainer>
+              <MainImage src="/past.png" />
+              <div>
+                <HorizontalContainer>
+                  <TitleGroup>
+                    <Subtitle red>What</Subtitle>
+                    <BoldText>Inaugural Concert</BoldText>
+                  </TitleGroup>
+                  <TitleGroup>
+                    <Subtitle red>When</Subtitle>
+                    <TallText>Spring 2018</TallText>
+                  </TitleGroup>
+                  {/* <TitleGroup>
+                <Subtitle red>Where</Subtitle>
+                <TallText>African American Studies &amp; Economics</TallText>
+              </TitleGroup> */}
+                </HorizontalContainer>
+
+                <Text space>
+                  For the inaugural concert series at Harvard in 2018, thanks to
+                  a performance from special guest Vic Mensa, and contributions
+                  from both Dr. Harry Edwards, and Jeremy Lin, No More Names
+                  raised over $7,000. All proceeds from ticket sales and
+                  donations will go to Campaign Zero, in hopes of creating a
+                  world where unarmed men and women do not see their lives taken
+                  by police. We are committed to end the cycle. We are committed
+                  to make sure that there will be no more names.
+                </Text>
+              </div>
+            </MainContainer>
+          </Container>
+        </BodyContainer>
+        <Footer />
+      </div>
     );
   }
 }

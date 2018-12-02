@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Nav from "../Nav.js";
+import Nav from "../Components/Nav.js";
 import SplitText from "react-pose-text";
+import Footer from "../Components/Footer";
 
 const cubicEasing = "cubic-bezier(1, 0, 0, 1)";
+
+const FullContainer = styled.div`
+  width: 100%;
+  min-height: calc(100vh - 9rem);
+`;
 
 const fade = keyframes`
 from {
@@ -30,7 +36,6 @@ const Container = styled.div`
     display: block;
   }
 `;
-
 
 const TitleContainer = styled.hgroup`
   background-color: #a11b1c;
@@ -111,7 +116,7 @@ const Text = styled.div`
 
 const BoldTextContainer = styled.h2`
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   margin: 0;
   overflow: hidden;
@@ -255,27 +260,30 @@ export default class extends Component {
 
     return (
       <div>
-        <Nav />
-        <Container>
-          <TitleContainer>
-            <TitleGroup>
-              <Subtitle>How to</Subtitle>
-              <MainTitle>Contact Us</MainTitle>
-            </TitleGroup>
-          </TitleContainer>
-          <MainContainer>
-            <HorizontalContainer>
+        <FullContainer>
+          <Nav />
+          <Container>
+            <TitleContainer>
               <TitleGroup>
-                <Subtitle red>Telephone</Subtitle>
-                <BoldText>+1 (407)-704-9845</BoldText>
+                <Subtitle>How to</Subtitle>
+                <MainTitle>Contact Us</MainTitle>
               </TitleGroup>
-              <TitleGroup>
-                <Subtitle red>Email</Subtitle>
-                <TallText>chris@nomorenames.co</TallText>
-              </TitleGroup>
-            </HorizontalContainer>
-          </MainContainer>
-        </Container>
+            </TitleContainer>
+            <MainContainer>
+              <HorizontalContainer>
+                <TitleGroup>
+                  <Subtitle red>Telephone</Subtitle>
+                  <BoldText>+1 (407)-704-9845</BoldText>
+                </TitleGroup>
+                <TitleGroup>
+                  <Subtitle red>Email</Subtitle>
+                  <TallText>chris@nomorenames.co</TallText>
+                </TitleGroup>
+              </HorizontalContainer>
+            </MainContainer>
+          </Container>
+        </FullContainer>
+        <Footer />
       </div>
     );
   }

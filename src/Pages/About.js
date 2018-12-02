@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Nav from "../Nav.js";
+import Nav from "../Components/Nav";
+import Footer from "../Components/Footer";
 import SplitText from "react-pose-text";
 
 const cubicEasing = "cubic-bezier(1, 0, 0, 1)";
-
 const fade = keyframes`
 from {
   transform: translateY(100%);
@@ -113,7 +113,7 @@ const Text = styled.div`
 
 const BoldTextContainer = styled.h2`
   font-size: 24px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
   margin: 0;
   overflow: hidden;
@@ -453,6 +453,7 @@ export default class extends Component {
             </PaneContainer>
           </RightContainer>
         </Container>
+        <Footer />
       </div>
     );
   }
