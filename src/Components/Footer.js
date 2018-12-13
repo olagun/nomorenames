@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Nav from "../Components/Nav.js";
-import SplitText from "react-pose-text";
 
 const RemoveTransform = keyframes`
   to {
-    transform: none;
+    transform: none; 
   }
 `;
 
@@ -29,12 +26,8 @@ const Logo = styled.img`
   object-fit: contain;
 `;
 
-export default class extends Component {
-  render() {
-    return (
-      <Footer>
-        <Logo src="/logo-alt.png" />
-      </Footer>
-    );
-  }
-}
+export default () => (
+  <Footer>
+    <Logo src="/logo-alt.png" />
+  </Footer>
+);

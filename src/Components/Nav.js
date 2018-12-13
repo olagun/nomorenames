@@ -1,7 +1,20 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Media from "react-media";
+
+// zIndex 1 content
+// zIndex 2 Nav
+// zIndex 3 Preloader
+const NavigationContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+`;
 
 const RemoveTransform = keyframes`
   to {
@@ -20,7 +33,6 @@ const Nav = styled.nav`
   animation-delay: 0.1s;
   animation-fill-mode: forwards;
   pointer-events: auto;
-  
 `;
 
 const SideBar = styled.div`
@@ -51,8 +63,8 @@ const SideBar = styled.div`
 `;
 
 const Logo = styled.div`
-z-index: 2;
-position: relative;
+  z-index: 2;
+  position: relative;
   width: 48px;
   height: 48px;
   background-color: #a11b1c;
@@ -154,16 +166,6 @@ const AltStyledNavLink = styled.a`
   }
 `;
 
-const Pane = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 999;
-  pointer-events: none;
-`;
-
 const SocialIcon = styled.a`
   width: 48px;
   height: 48px;
@@ -214,15 +216,15 @@ export default class extends Component {
 
   render() {
     return (
-      <Pane>
+      <NavigationContainer>
         <Tint
           active={this.state.navIsActive}
           onClick={this.toggleNav.bind(this)}
         />
         <Nav>
-          <Link to={"/"} style={{position: "relative"}}>
+          <NavLink to={"/"} style={{ position: "relative" }}>
             <Logo />
-          </Link>
+          </NavLink>
           <LinkContainer active={this.state.navIsActive}>
             <LeftLinks>
               <StyledNavLink to={"/about"}>About</StyledNavLink>
@@ -241,15 +243,13 @@ export default class extends Component {
           </LinkContainer>
         </Nav>
         <SideBar>
-          <Media
-            query="(max-width: 1240px)"
-            render={() => (
-              <SocialIcon
-                src="/hamburger.png"
-                onClick={this.toggleNav.bind(this)}
-              />
-            )}
-          />
+          <Media query="(max-width: 1240px)">
+            <SocialIcon
+              src="/hamburger.png"
+              onClick={this.toggleNav.bind(this)}
+            />
+          </Media>
+
           <SocialIcon
             src="/ig.png"
             href="https://www.instagram.com/pleasenomorenames/tagged/"
@@ -266,7 +266,7 @@ export default class extends Component {
             target="_blank"
           />
         </SideBar>
-      </Pane>
+      </NavigationContainer>
     );
   }
 }

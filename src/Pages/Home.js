@@ -20,7 +20,7 @@ export default class extends Component {
   render() {
     return (
       <div>
-        {!this.state.isLoaded && <Preloader loaded={this.isLoaded.bind(this)} />}
+        {/* {!this.state.isLoaded && <Preloader loaded={this.isLoaded.bind(this)} />} */}
         <Nav />
         <Jumbo />
         <Story />

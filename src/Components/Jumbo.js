@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import posed from "react-pose";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import YouTube from "react-youtube";
 
 const Jumbo = styled.div`
   width: 100%;
@@ -47,7 +48,7 @@ const Overlay = styled.div`
   pointer-events: ${({ show }) => (show ? "auto" : "none")};
 `;
 
-const Video = styled.iframe`
+const Video = styled(YouTube)`
   width: 100%;
   padding: 10px;
   height: calc(100vh - 144px);
@@ -142,7 +143,8 @@ export default class extends Component {
     super();
 
     this.state = {
-      playVideo: false
+      playVideo: false,
+      target: null
     };
   }
   render() {
@@ -170,7 +172,8 @@ export default class extends Component {
                 this.setState({
                   playVideo: true
                 });
-                setTimeout(this.props.loaded, 200);
+                this.state.target.playVideo();
+                // setTimeout(this.props.loaded, 200);
               }}
             >
               <StyledPlayButton />
@@ -180,10 +183,8 @@ export default class extends Component {
         </Overlay>
         )}
         <Video
-          src="https://www.youtube.com/embed/XgfXGtug4B8"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
+          videoId="XgfXGtug4B8"
+          onReady={event => this.setState({ target: event.target })}
         />
       </Jumbo>
     );
