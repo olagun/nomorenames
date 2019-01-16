@@ -3,13 +3,17 @@ import styled from "styled-components";
 import posed from "react-pose";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import YouTube from "react-youtube";
+import SplitText from "react-pose-text";
 
 const Jumbo = styled.div`
   width: 100%;
   box-sizing: border-box;
-  height: calc(100vh - 120px);
   background-color: black;
   position: relative;
+  // float: right;
+  display: inline-block;
+  height: calc(100vh - 120px);
+  // margin: 0;
 
   // @media (max-width: 1240px) {
   //   display: block;
@@ -48,9 +52,10 @@ const Overlay = styled.div`
   pointer-events: ${({ show }) => (show ? "auto" : "none")};
 `;
 
-const Video = styled(YouTube)`
+const Video = styled.video`
   width: 100%;
   padding: 10px;
+  pointer-events: none;
   height: calc(100vh - 144px);
 `;
 
@@ -138,15 +143,36 @@ const StyledPlayButton = styled.div`
   background-repeat: no-repeat;
 `;
 
-export default class extends Component {
-  constructor() {
-    super();
+const callToAction = ["Inspires", "Educates", "Engages"];
 
-    this.state = {
-      playVideo: false,
-      target: null
-    };
+const charPoses = {
+  exit: { opacity: 0, y: 20 },
+  enter: {
+    opacity: 1,
+    y: 0,
+    delay: ({ charIndex }) => charIndex * 50
   }
+};
+
+export default class extends Component {
+  videoRef = React.createRef();
+
+  state = {
+    playVideo: false,
+    target: null,
+    index: 0
+  };
+
+  componentDidMount() {
+    setInterval(
+      () =>
+        this.setState({
+          index: (this.state.index + 1) % callToAction.length
+        }),
+      4000
+    );
+  }
+
   render() {
     return (
       <Jumbo>
@@ -161,6 +187,11 @@ export default class extends Component {
               <br />
               Names
               <Period />
+              <br />
+              <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
+                {callToAction[this.state.index]}
+              </SplitText>
+              <Period />
             </Title>
             <Statement show={!this.state.playVideo}>
               We are putting our foot down and saying that enough is enough. The
@@ -169,11 +200,9 @@ export default class extends Component {
             </Statement>
             <PlayButtonContainer
               onClick={() => {
-                this.setState({
-                  playVideo: true
-                });
-                this.state.target.playVideo();
-                // setTimeout(this.props.loaded, 200);
+                this.setState({ playVideo: true });
+                this.videoRef.currentTime = 0;
+                this.videoRef.play();
               }}
             >
               <StyledPlayButton />
@@ -181,11 +210,18 @@ export default class extends Component {
             </PlayButtonContainer>
           </Section>
         </Overlay>
-        )}
         <Video
-          videoId="XgfXGtug4B8"
-          onReady={event => this.setState({ target: event.target })}
-        />
+          autoPlay
+          muted
+          ref={ref => (this.videoRef = ref)}
+          onEnded={evnt => {
+            this.setState({ playVideo: false });
+            this.videoRef.currentTime = 0;
+            this.videoRef.play();
+          }}
+        >
+          <source src="./video.mp4" type="video/mp4" />
+        </Video>
       </Jumbo>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import Media from "react-media";
 
 // zIndex 1 content
@@ -144,7 +144,7 @@ const StyledNavLink = ({ children, ...props }) => (
   </SNavLink>
 );
 
-const AltStyledNavLink = styled.a`
+const AltStyledNavLink = styled(Link)`
   color: white;
   background-color: #a11b1c;
   display: inline-block;
@@ -232,13 +232,8 @@ export default class extends Component {
               <StyledNavLink to={"/events"}>Events</StyledNavLink>
             </LeftLinks>
             <RightLinks>
-              <AltStyledNavLink
-                href={
-                  "https://secure.squarespace.com/checkout/donate?donatePageId=5ae0cb86aa4a99f96fbb5889"
-                }
-              >
-                Donate
-              </AltStyledNavLink>
+              <AltStyledNavLink to={"/merch"}>Merchandise</AltStyledNavLink>
+              <AltStyledNavLink to={"/donate"}>Donate</AltStyledNavLink>
             </RightLinks>
           </LinkContainer>
         </Nav>
@@ -249,15 +244,19 @@ export default class extends Component {
               onClick={this.toggleNav.bind(this)}
             />
           </Media>
-
+          <SocialIcon
+            src="/twitter.png"
+            href="https://twitter.com/_nomorenames"
+            target="_blank"
+          />
           <SocialIcon
             src="/ig.png"
-            href="https://www.instagram.com/pleasenomorenames/tagged/"
+            href="https://www.instagram.com/_nomorenames/tagged/"
             target="_blank"
           />
           <SocialIcon
             src="/fb.png"
-            href="https://www.facebook.com/No-More-Names-2127419657539828/?ref=settings"
+            href="https://www.facebook.com/No-More-Names-2127419657539828/"
             target="_blank"
           />
           <SocialIcon

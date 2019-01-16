@@ -4,27 +4,15 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "../Components/Nav.js";
 import SplitText from "react-pose-text";
 import Footer from "../Components/Footer";
-
-const cubicEasing = "cubic-bezier(1, 0, 0, 1)";
+import Subtitle from "../Components/Subtitle";
+import AnimatedText from "../Components/Animated";
+import MainTitle from "../Components/MainTitle";
 
 const FullContainer = styled.div`
   width: 100%;
   min-height: calc(100vh - 9rem);
 `;
 
-const fade = keyframes`
-from {
-  transform: translateY(100%);
-}
-
-to {
-  transform: translateY(0%);
-}
-`;
-
-const AnimatedText = styled.div`
-  animation: ${fade} 1s ${cubicEasing};
-`;
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -51,37 +39,6 @@ const TitleGroup = styled.div`
   flex-direction: column;
   margin-bottom: ${props => (props.space ? "16px" : "0")};
 `;
-
-const SubtitleContainer = styled.h3`
-  font-family: "Avenir Next";
-  margin: 0;
-  font-size: 18px;
-  color: ${props => (props.red ? "#a11b1c" : "white")};
-  margin: 0;
-  overflow: hidden;
-`;
-
-const Subtitle = ({ children, ...props }) => (
-  <SubtitleContainer {...props}>
-    <AnimatedText>{children}</AnimatedText>
-  </SubtitleContainer>
-);
-
-const MainTitleContainer = styled.h1`
-  font-family: "Avenir Next Condensed";
-  color: white;
-  font-weight: 300;
-  font-size: 56px;
-  margin: 0;
-  line-height: 1;
-  overflow: hidden;
-`;
-
-const MainTitle = ({ children }) => (
-  <MainTitleContainer>
-    <AnimatedText>{children}</AnimatedText>
-  </MainTitleContainer>
-);
 
 const InfoContainer = styled.section`
   grid-column: 1;
