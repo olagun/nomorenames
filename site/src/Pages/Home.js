@@ -6,11 +6,13 @@ import Story from "../Components/Story";
 import Preloader from "../Preloader";
 import Footer from "../Components/Footer";
 
+import NameMap from '../Components/IntroAnimation'
+
 export default class extends Component {
   constructor() {
     super();
     this.state = {
-      isLoaded: false
+      isLoaded: false,
     };
   }
   isLoaded() {
@@ -20,11 +22,16 @@ export default class extends Component {
   render() {
     return (
       <div>
-        {!this.state.isLoaded && <Preloader loaded={this.isLoaded.bind(this)} />}
+        {/* {!this.state.isLoaded && <Preloader loaded={this.isLoaded.bind(this)} />}
         <Nav />
         <Jumbo />
         <Story />
-        <Footer />
+        <Footer /> */}
+        <NameMap
+          minWait={100}
+          maxWait={2000}
+          onComplete={this.onComplete}
+        />
       </div>
     );
   }
