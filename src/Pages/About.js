@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "../Components/Nav";
 import Footer from "../Components/Footer";
@@ -10,7 +10,8 @@ import Subtitle from "../Components/Subtitle";
 import MainTitle from "../Components/MainTitle";
 import Timeline from "../Components/Timeline";
 import posed, { PoseGroup } from "react-pose";
-import text from "../about";
+import AboutScroll from "../Components/AboutScroll";
+import P from "../Components/P";
 
 const Container = styled.div`
   display: grid;
@@ -118,7 +119,7 @@ const LeftContainer = styled.div`
 const RightContainer = styled.div`
   grid-column: 2;
   background-color: white;
-  padding: 32px;
+  padding: 16px 32px;
 `;
 
 const StyledOption = styled.div`
@@ -143,7 +144,7 @@ const TallName = styled.h1`
   font-size: 56px;
   font-family: "Avenir Next Condensed";
   font-weight: normal;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   margin: 0;
   margin-top: 16px;
 `;
@@ -193,46 +194,24 @@ const VerticalContainer = styled.div`
 `;
 
 export default class extends Component {
-  state = {
-    currIndex: 0,
-    members: ["Excite", "Engage", "Invest"]
-  };
-
-  onClick = currIndex => {
-    this.setState({
-      currIndex
-    });
-  };
-
   render() {
-    const charPoses = {
-      exit: { opacity: 0, y: 10 },
-      enter: {
-        opacity: 1,
-        y: 0,
-        delay: ({ wordIndex }) => wordIndex * 200 + 100
-      }
-    };
-
     return (
       <div>
         <Nav />
         <Container>
-          <TitleContainer>
-            <TitleGroup>
-              <Subtitle>What We're</Subtitle>
-              <MainTitle>About</MainTitle>
-            </TitleGroup>
-          </TitleContainer>
+          <ThemeProvider
+            theme={{ textColor: "rgb(255,255,255)", mainColor: "rgb(0,0,0)" }}
+          >
+            <TitleContainer>
+              <TitleGroup>
+                <Subtitle>What We're</Subtitle>
+                <MainTitle>About</MainTitle>
+              </TitleGroup>
+            </TitleContainer>
+          </ThemeProvider>
           <InfoContainer>
             <Info>
-              <TitleGroup>
-                <Subtitle red>Our</Subtitle>
-                <BoldText>
-                  <Underline>Who</Underline> We Are
-                </BoldText>
-              </TitleGroup>
-              <Text space>
+              <P>
                 No More Names is an organization that uses benefit concerts as a
                 means to build awareness and raise funds to support the fight
                 against police brutality. The organization was founded by
@@ -241,36 +220,11 @@ export default class extends Component {
                 Jeremy Lin and Dr. Harry Edwards (Organizer of the 1968 Olympic
                 Protest and Cornell Alumnus). At this event they were able to
                 raise $7000.
-              </Text>
+              </P>
             </Info>
           </InfoContainer>
         </Container>
-        <Container>
-          <LeftContainer>
-            <Subtitle red>What We Do</Subtitle>
-            <UniversityOptions>
-              {this.state.members.map((e, index) => (
-                <UniversityOption
-                  onClick={this.onClick.bind(null, index)}
-                  option={e}
-                  index={index}
-                  active={index === this.state.currIndex}
-                />
-              ))}
-            </UniversityOptions>
-          </LeftContainer>
-          <RightContainer>
-            <TallName>
-              <SplitText initialPose="exit" pose="enter" charPoses={charPoses}>
-                {this.state.members[this.state.currIndex]}
-              </SplitText>
-            </TallName>
-
-            <PaneContainer>
-              <Timeline data={text[this.state.members[this.state.currIndex]]} />
-            </PaneContainer>
-          </RightContainer>
-        </Container>
+        <AboutScroll />
         <Footer />
       </div>
     );

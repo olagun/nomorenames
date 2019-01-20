@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled, { keyframes } from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 import Media from "react-media";
-import { Events } from "react-scroll";
 import { easing } from "popmotion";
 import posed from "react-pose";
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Nav from "../Components/Nav.js";
 import SplitText from "react-pose-text";
@@ -220,12 +220,16 @@ export default class extends Component {
         <FullContainer>
           <Nav />
           <Container>
-            <TitleContainer>
-              <TitleGroup>
-                <Subtitle>How to</Subtitle>
-                <MainTitle>Contact Us</MainTitle>
-              </TitleGroup>
-            </TitleContainer>
+            <ThemeProvider
+              theme={{ textColor: "rgb(255,255,255)", mainColor: "rgb(0,0,0)" }}
+            >
+              <TitleContainer>
+                <TitleGroup>
+                  <Subtitle>How to</Subtitle>
+                  <MainTitle>Contact Us</MainTitle>
+                </TitleGroup>
+              </TitleContainer>
+            </ThemeProvider>
             <MainContainer>
               <HorizontalContainer>
                 <TitleGroup>
