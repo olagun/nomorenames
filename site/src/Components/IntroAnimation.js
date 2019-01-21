@@ -41,7 +41,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 class MapComponent extends Component {
   static defaultProps = {
-    minWait: 50,
+    minWait: 100,
     maxWait: 1000
   }
 
@@ -59,6 +59,8 @@ class MapComponent extends Component {
   };
 
   async addNames(names) {
+    var triggeredClose = false
+
     for (var i in names) {
       const n = names[i]
       await this.setState({
@@ -71,17 +73,22 @@ class MapComponent extends Component {
 
       const waitTime = this.props.minWait + (this.props.maxWait - this.props.minWait) * Math.exp(-i / 8)
       await sleep(waitTime)
+
+      if (!triggeredClose && i > names.length * .6) {
+        triggeredClose = true
+        this.props.nearlyDone()
+      }
     }
   }
 
   loadNames() {
-    return names.concat(names).concat(names)
+    // hack to load a bunch of names before we have real data
+    return names.concat(names).concat(names).concat(names).concat(names).concat(names).concat(names)
   }
 
   async componentDidMount() {
     const names = await this.loadNames()
     await this.addNames(names)
-    this.props.completeAnimation()
   }
 
   render() {
@@ -168,7 +175,7 @@ class WarningComponent extends Component {
   }
 }
 
-export default class NameMap extends Component {
+export default class IntroAnimation extends Component {
   state = {
     showMap: true,
     showWarning: false,
@@ -180,7 +187,7 @@ export default class NameMap extends Component {
         {
           this.state.showMap &&
             <MapComponent
-              completeAnimation={() => this.setState({ showWarning: true })}
+              nearlyDone={() => this.setState({ showWarning: true })}
             />
         }
         {

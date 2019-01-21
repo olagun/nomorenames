@@ -6,7 +6,8 @@ import Story from "../Components/Story";
 import Preloader from "../Preloader";
 import Footer from "../Components/Footer";
 
-import NameMap from '../Components/IntroAnimation'
+import IntroAnimation from '../Components/IntroAnimation'
+import NameMap from '../Components/NameMap'
 
 export default class extends Component {
   constructor() {
@@ -26,12 +27,12 @@ export default class extends Component {
         <Nav />
         <Jumbo />
         <Story />
-        <Footer /> */}
-        <NameMap
-          minWait={100}
-          maxWait={2000}
+        <Footer />
+        <IntroAnimation
           onComplete={this.onComplete}
         />
+        */}
+        <NameMap />
       </div>
     );
   }
